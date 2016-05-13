@@ -1,0 +1,37 @@
+// ==UserScript==
+// @name         Remove Unnötige AWS Regionen
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Entfernt in der AWS Console die unnötigen Regionen
+// @author       You
+// @match        https://*.console.aws.amazon.com/*
+// @grant        none
+// @require http://code.jquery.com/jquery-latest.js
+// ==/UserScript==
+var backup = "";
+var stupidRegions = ["eu-west-1", "eu-central-1", "us-east-1"];
+
+function removeRegions()
+{
+    $('#regionMenuContent').children().each(function(){
+        if( $.inArray( $(this).attr('data-region-id'), stupidRegions ) == -1 &&  !$(this).hasClass('current-region') )
+        {
+            $(this).remove();
+        }
+    });
+    $('#regionMenuContent').append('<a target="_top" class="region available-region" ><u>____________</u></a>');
+    $('#regionMenuContent').append('<a target="_top" id="showOtherRegions" class="region available-region" style="cursor: pointer" > Andere Regionen </a>');
+    $('#showOtherRegions').click(revertBackup);
+}
+function revertBackup()
+{
+    $('#regionMenuContent').html(backup);
+}
+(function() {
+    'use strict';
+    $( document ).ready(function() {
+        backup = $('#regionMenuContent').html();
+        $('#nav-regionMenu').click(removeRegions);
+        removeRegions();
+    });
+})();
