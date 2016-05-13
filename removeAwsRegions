@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Remove Unnötige AWS Regionen
+// @name         Remove UnnÃ¶tige AWS Regionen
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Entfernt in der AWS Console die unnötigen Regionen
+// @description  Entfernt in der AWS Console die unnÃ¶tigen Regionen
 // @author       You
 // @match        https://*.console.aws.amazon.com/*
 // @grant        none
@@ -29,9 +29,14 @@ function revertBackup()
 }
 (function() {
     'use strict';
-    $( document ).ready(function() {
-        backup = $('#regionMenuContent').html();
-        $('#nav-regionMenu').click(removeRegions);
-        removeRegions();
-    });
+    
+    if( !$('#region-sel-not-required').length )
+    {
+        $( document ).ready(function() {
+            backup = $('#regionMenuContent').html();
+            $('#nav-regionMenu').click(removeRegions);
+            removeRegions();
+        }); 
+    }
+
 })();
