@@ -4,7 +4,8 @@
 // @version      0.1
 // @description  Entfernt in der AWS Console die unnötigen Regionen
 // @author       You
-// @match        https://*.console.aws.amazon.com/*
+// @include      https://*.console.aws.amazon.com/*
+// @exclude      https://*.console.aws.amazon.com/iam/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
